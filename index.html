@@ -23,6 +23,7 @@
             display: flex;
             justify-content: center;
             padding: 40px 20px;
+            overflow-x: hidden; /* ป้องกันหน้าจอเลื่อนแนวนอน */
         }
 
         .resume-container {
@@ -41,6 +42,7 @@
             border: 1px solid #e2e8f0;
             box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            min-width: 0; /* ป้องกัน flex/grid item ขยายทะลุคอนเทนเนอร์ */
         }
 
         .card:hover {
@@ -65,7 +67,7 @@
             color: #0284c7;
         }
 
-        /* ---------------- 1. Hero / Header Card ---------------- */
+        /* ---------------- 1. Hero / Header Card (Fixed Responsive) ---------------- */
         .card-hero {
             grid-column: span 12;
             background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #0284c7 100%);
@@ -73,7 +75,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 36px 40px;
+            padding: 32px 36px;
+            gap: 20px;
             position: relative;
             overflow: hidden;
         }
@@ -81,16 +84,17 @@
         .hero-left {
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 20px;
+            min-width: 0;
         }
 
         .profile-wrapper {
-            width: 125px;
-            height: 125px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             overflow: hidden;
-            border: 4px solid rgba(255, 255, 255, 0.35);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border: 3.5px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -106,12 +110,17 @@
             transform-origin: center center;
         }
 
+        .hero-info {
+            min-width: 0;
+        }
+
         .hero-name {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 800;
-            letter-spacing: 1.5px;
-            line-height: 1.1;
+            letter-spacing: 1px;
+            line-height: 1.15;
             text-transform: uppercase;
+            word-wrap: break-word;
         }
 
         .hero-badge {
@@ -122,29 +131,34 @@
             border-radius: 30px;
             font-size: 11px;
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
             margin-top: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            max-width: 100%;
+            white-space: normal;
         }
 
         .hero-right {
             text-align: right;
             border-left: 2px solid rgba(255, 255, 255, 0.25);
             padding-left: 20px;
+            flex-shrink: 0;
         }
 
         .hero-role {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
+            line-height: 1.2;
         }
 
         .hero-subrole {
-            font-size: 12px;
+            font-size: 11.5px;
             color: #cbd5e1;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             text-transform: uppercase;
+            margin-top: 2px;
         }
 
         /* ---------------- 2. Personal Info & Skills Cards ---------------- */
@@ -174,7 +188,6 @@
             word-break: break-all;
         }
 
-        /* Key Competencies */
         .card-skills {
             grid-column: span 4;
         }
@@ -216,7 +229,7 @@
             line-height: 1.5;
         }
 
-        /* ---------------- 3. Tools Card (No Percentages, Practical Experience) ---------------- */
+        /* ---------------- 3. Tools Card ---------------- */
         .card-tools {
             grid-column: span 4;
         }
@@ -323,26 +336,65 @@
             line-height: 1.6;
         }
 
-        /* ---------------- Mobile Responsive ---------------- */
+        /* ---------------- Mobile & Tablet Responsive ---------------- */
         @media (max-width: 900px) {
+            body {
+                padding: 16px 12px; /* ลด padding รอบขอบจอ */
+            }
+
+            .resume-container {
+                gap: 14px;
+            }
+
             .card-contact, .card-skills, .card-tools, .card-education, .card-experience {
                 grid-column: span 12;
             }
 
             .card-hero {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 20px;
-                padding: 24px;
+                align-items: center; /* จัดกึ่งกลางบนมือถือ */
+                text-align: center;
+                padding: 24px 18px;
+                gap: 16px;
+            }
+
+            .hero-left {
+                flex-direction: column;
+                align-items: center;
+                gap: 14px;
+                width: 100%;
+            }
+
+            .profile-wrapper {
+                width: 95px;
+                height: 95px; /* ลดขนาดรูปเล็กน้อยเพื่อให้สมดุล */
+            }
+
+            .hero-name {
+                font-size: 21px; /* ลดขนาดชื่อให้อยู่ในหน้าจอพอดี */
+                letter-spacing: 0.5px;
+            }
+
+            .hero-badge {
+                font-size: 10px;
+                padding: 3px 10px;
             }
 
             .hero-right {
                 border-left: none;
-                border-top: 2px solid rgba(255, 255, 255, 0.25);
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
                 padding-left: 0;
-                padding-top: 15px;
+                padding-top: 14px;
                 width: 100%;
-                text-align: left;
+                text-align: center; /* จัดกึ่งกลางบนมือถือ */
+            }
+
+            .hero-role {
+                font-size: 16px;
+            }
+
+            .hero-subrole {
+                font-size: 11px;
             }
         }
     </style>
@@ -351,13 +403,13 @@
 
 <div class="resume-container">
 
-    <!-- Card 1: Header Profile -->
+    <!-- Card 1: Header Profile (ปรับให้ไม่ล้นจอ) -->
     <div class="card card-hero">
         <div class="hero-left">
             <div class="profile-wrapper">
                 <img src="profile.jpg" alt="Chutimon Udomvitid" class="profile-img">
             </div>
-            <div>
+            <div class="hero-info">
                 <div class="hero-name">Chutimon Udomvitid</div>
                 <div class="hero-badge">Co-op Internship Candidate</div>
             </div>
@@ -416,7 +468,7 @@
         </div>
     </div>
 
-    <!-- Card 4: Tools & Hands-on Experience (No Percentages) -->
+    <!-- Card 4: Tools & Hands-on Experience -->
     <div class="card card-tools">
         <div class="card-header">
             <span class="card-title">Tools & Applied Experience</span>

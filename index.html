@@ -84,13 +84,26 @@
             gap: 24px;
         }
 
-        .profile-img {
-            width: 110px;
-            height: 110px;
+        .profile-wrapper {
+            width: 125px;
+            height: 125px;
             border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid rgba(255, 255, 255, 0.3);
+            overflow: hidden;
+            border: 4px solid rgba(255, 255, 255, 0.35);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.15);
+            transform-origin: center center;
         }
 
         .hero-name {
@@ -134,7 +147,7 @@
             text-transform: uppercase;
         }
 
-        /* ---------------- 2. Personal Info & Skills (Sidebar-like cards) ---------------- */
+        /* ---------------- 2. Personal Info & Skills Cards ---------------- */
         .card-contact {
             grid-column: span 4;
         }
@@ -154,81 +167,97 @@
         }
 
         .contact-row span, .contact-row a {
-            font-size: 13.5px;
+            font-size: 13px;
             color: #0f172a;
             font-weight: 500;
             text-decoration: none;
             word-break: break-all;
         }
 
+        /* Key Competencies */
         .card-skills {
             grid-column: span 4;
         }
 
-        .skill-item {
+        .competency-item {
             margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #f1f5f9;
         }
 
-        .skill-name {
-            display: flex;
-            justify-content: space-between;
+        .competency-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .competency-name {
             font-size: 12.5px;
-            font-weight: 600;
-            color: #334155;
-            margin-bottom: 4px;
-        }
-
-        .dash-bar {
+            font-weight: 700;
+            color: #1e3a8a;
             display: flex;
-            gap: 4px;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 3px;
         }
 
-        .dash {
-            height: 5px;
-            flex: 1;
-            background: #e2e8f0;
-            border-radius: 3px;
-        }
-
-        .dash.active {
+        .competency-name::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
             background: #0284c7;
+            border-radius: 50%;
         }
 
-        /* ---------------- 3. Tools Card ---------------- */
+        .competency-desc {
+            font-size: 11.5px;
+            color: #475569;
+            line-height: 1.5;
+        }
+
+        /* ---------------- 3. Tools Card (No Percentages, Practical Experience) ---------------- */
         .card-tools {
             grid-column: span 4;
         }
 
-        .tools-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
+        .tools-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .tool-box {
+        .tool-card {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 12px 10px;
-            text-align: center;
+            border-radius: 10px;
+            padding: 10px 12px;
         }
 
-        .tool-metric {
-            font-size: 18px;
-            font-weight: 800;
-            color: #1e3a8a;
-        }
-
-        .tool-name {
-            font-size: 12px;
+        .tool-title {
+            font-size: 12.5px;
             font-weight: 700;
             color: #0f172a;
-            margin-top: 2px;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .tool-sub {
+        .tool-badge {
             font-size: 9.5px;
+            background: #e0f2fe;
+            color: #0284c7;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+
+        .tool-usage {
+            font-size: 11px;
             color: #64748b;
+            line-height: 1.45;
         }
 
         /* ---------------- 4. About Me Card ---------------- */
@@ -237,7 +266,7 @@
         }
 
         .about-text {
-            font-size: 14px;
+            font-size: 13.5px;
             line-height: 1.7;
             color: #334155;
             text-align: justify;
@@ -282,14 +311,14 @@
         }
 
         .timeline-head {
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 700;
             color: #0f172a;
             margin: 2px 0 4px;
         }
 
         .timeline-desc {
-            font-size: 12.5px;
+            font-size: 12px;
             color: #475569;
             line-height: 1.6;
         }
@@ -325,7 +354,9 @@
     <!-- Card 1: Header Profile -->
     <div class="card card-hero">
         <div class="hero-left">
-            <img src="profile.jpg" alt="Chutimon Udomvitid" class="profile-img">
+            <div class="profile-wrapper">
+                <img src="profile.jpg" alt="Chutimon Udomvitid" class="profile-img">
+            </div>
             <div>
                 <div class="hero-name">Chutimon Udomvitid</div>
                 <div class="hero-badge">Co-op Internship Candidate</div>
@@ -362,68 +393,65 @@
         </div>
     </div>
 
-    <!-- Card 3: Skills & Attributes -->
+    <!-- Card 3: Key Competencies -->
     <div class="card card-skills">
         <div class="card-header">
             <span class="card-title">Key Competencies</span>
         </div>
-        <div class="skill-item">
-            <div class="skill-name"><span>Responsibility</span> <span>5/5</span></div>
-            <div class="dash-bar">
-                <div class="dash active"></div><div class="dash active"></div><div class="dash active"></div><div class="dash active"></div><div class="dash active"></div>
-            </div>
+        <div class="competency-item">
+            <div class="competency-name">User Empathy & Research</div>
+            <div class="competency-desc">Skilled at analyzing real user pain points, conducting behavioral interviews, and converting research insights into actionable problem statements.</div>
         </div>
-        <div class="skill-item">
-            <div class="skill-name"><span>Fast Learner</span> <span>5/5</span></div>
-            <div class="dash-bar">
-                <div class="dash active"></div><div class="dash active"></div><div class="dash active"></div><div class="dash active"></div><div class="dash active"></div>
-            </div>
+        <div class="competency-item">
+            <div class="competency-name">Wireframing & Prototyping</div>
+            <div class="competency-desc">Proficient in translating complex requirements into clear user flows, low-to-high fidelity wireframes, and interactive prototypes ready for testing.</div>
         </div>
-        <div class="skill-item">
-            <div class="skill-name"><span>User Empathy & UX</span> <span>4/5</span></div>
-            <div class="dash-bar">
-                <div class="dash active"></div><div class="dash active"></div><div class="dash active"></div><div class="dash active"></div><div class="dash"></div>
-            </div>
+        <div class="competency-item">
+            <div class="competency-name">Analytical Logic & Feasibility</div>
+            <div class="competency-desc">Leverages a strong Mathematics and CS background to design UI structures with high technical feasibility and clear system logic for developers.</div>
         </div>
-        <div class="skill-item">
-            <div class="skill-name"><span>Wireframing & UI</span> <span>4/5</span></div>
-            <div class="dash-bar">
-                <div class="dash active"></div><div class="dash active"></div><div class="dash active"></div><div class="dash active"></div><div class="dash"></div>
-            </div>
-        </div>
-        <div class="skill-item">
-            <div class="skill-name"><span>Visual Design & Logic</span> <span>4/5</span></div>
-            <div class="dash-bar">
-                <div class="dash active"></div><div class="dash active"></div><div class="dash active"></div><div class="dash active"></div><div class="dash"></div>
-            </div>
+        <div class="competency-item">
+            <div class="competency-name">Fast Learner & Adaptability</div>
+            <div class="competency-desc">Quickly masters emerging design tools, industry design systems, and domain-specific knowledge across varied technical landscapes.</div>
         </div>
     </div>
 
-    <!-- Card 4: Design Tools -->
+    <!-- Card 4: Tools & Hands-on Experience (No Percentages) -->
     <div class="card card-tools">
         <div class="card-header">
-            <span class="card-title">Tools & Stack</span>
+            <span class="card-title">Tools & Applied Experience</span>
         </div>
-        <div class="tools-grid">
-            <div class="tool-box">
-                <div class="tool-metric">80%</div>
-                <div class="tool-name">Figma</div>
-                <div class="tool-sub">UI & Prototype</div>
+        <div class="tools-list">
+            <div class="tool-card">
+                <div class="tool-title">
+                    <span>Figma</span>
+                    <span class="tool-badge">Core Tool</span>
+                </div>
+                <div class="tool-usage">Used for UI mockups, responsive layouts, interactive prototyping, and preparing clickable demos for usability testing.</div>
             </div>
-            <div class="tool-box">
-                <div class="tool-metric">85%</div>
-                <div class="tool-name">FigJam / Miro</div>
-                <div class="tool-sub">Flow & Journey</div>
+
+            <div class="tool-card">
+                <div class="tool-title">
+                    <span>FigJam / Miro</span>
+                    <span class="tool-badge">Research</span>
+                </div>
+                <div class="tool-usage">Used for mapping User Journey, Empathy Maps, Information Architecture, and brainstorming system workflows.</div>
             </div>
-            <div class="tool-box">
-                <div class="tool-metric">80%</div>
-                <div class="tool-name">Design System</div>
-                <div class="tool-sub">Components</div>
+
+            <div class="tool-card">
+                <div class="tool-title">
+                    <span>Design System</span>
+                    <span class="tool-badge">Structure</span>
+                </div>
+                <div class="tool-usage">Applied reusable components, color styles, typographic scales, and auto-layout to maintain design consistency.</div>
             </div>
-            <div class="tool-box">
-                <div class="tool-metric">75%</div>
-                <div class="tool-name">HTML / CSS</div>
-                <div class="tool-sub">Web Structure</div>
+
+            <div class="tool-card">
+                <div class="tool-title">
+                    <span>HTML5 / CSS3</span>
+                    <span class="tool-badge">Frontend</span>
+                </div>
+                <div class="tool-usage">Built responsive web layouts, structured card components, and tested design feasibility with real code.</div>
             </div>
         </div>
     </div>
